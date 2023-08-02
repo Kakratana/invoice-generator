@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { uid } from 'uid';
 import InvoiceItem from './InvoiceItem';
 import InvoiceModal from './InvoiceModal';
+import test from './testInvoice';
 import incrementString from '../helpers/incrementString';
 const date = new Date();
 const today = date.toLocaleDateString('en-GB', {

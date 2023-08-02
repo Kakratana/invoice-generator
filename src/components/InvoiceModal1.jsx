@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { toPng } from 'html-to-image';
 import { jsPDF } from 'jspdf';
-import { useRef } from 'react';
-import { toBlob } from 'html-to-image';
 
 const InvoiceModal = ({
   isOpen,
@@ -83,30 +81,6 @@ const InvoiceModal = ({
       });
   };
 
-  const imageRef = useRef(null);
-
-  const handleShare = async () => {
-    const newFile = await toBlob(imageRef.current);
-    const data = {
-      files: [
-        new File([newFile], "nuzlocke.png", {
-          type: newFile.type
-        })
-      ],
-      title: "Nuzlocke",
-      text: "Nuzlocke"
-    };
-
-    try {
-      if (!navigator.canShare(data)) {
-        console.error("Can't share");
-      }
-      await navigator.share(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -144,7 +118,7 @@ const InvoiceModal = ({
             leaveTo="opacity-0 scale-95"
           >
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all">
-              <div className="p-4" id="print" ref={imageRef}>
+              <div className="p-4" id="print">
                 <h1 className="text-center text-lg font-bold text-gray-900">
                   INVOICE
                 </h1>
@@ -232,23 +206,24 @@ const InvoiceModal = ({
                   <span>Download</span>
                 </button>
                 <button
-                  onClick={handleShare}
+                  onClick={addNextInvoiceHandler}
                   className="flex w-full items-center justify-center space-x-1 rounded-md bg-blue-500 py-2 text-sm text-white shadow-sm hover:bg-blue-600"
                 >
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-      height="1em"
-      width="1em"
-
-    >
-      <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13" />
-    </svg>
-                  <span>Share</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                    />
+                  </svg>
+                  <span>Next</span>
                 </button>
               </div>
             </div>
