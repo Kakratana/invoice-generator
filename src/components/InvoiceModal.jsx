@@ -146,7 +146,7 @@ const InvoiceModal = ({
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all">
               <div className="p-4" id="print" ref={imageRef}>
                 <h1 className="text-center text-lg font-bold text-gray-900">
-                  INVOICE
+                PURCHASE ORDER NOTE
                 </h1>
                 <div className="mt-6">
                   <div className="mb-4 grid grid-cols-2">
