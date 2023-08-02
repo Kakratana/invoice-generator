@@ -117,7 +117,7 @@ const InvoiceForm = () => {
             />
           </div>
         </div>
-        <h1 className="text-center text-lg font-bold">INVOICE</h1>
+        <h1 className="text-center text-lg font-bold">PURCHASE ORDER NOTE</h1>
         <div className="grid grid-cols-2 gap-2 pt-4 pb-8">
           <label
             htmlFor="cashierName"
