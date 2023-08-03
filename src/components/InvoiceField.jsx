@@ -2,7 +2,8 @@ import React from 'react';
 
 const InvoiceField = ({ onEditItem, cellData }) => {
   return (
-    <input
+    
+    <input 
       className={cellData.className}
       type={cellData.type}
       placeholder={cellData.placeholder}

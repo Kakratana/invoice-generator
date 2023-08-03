@@ -4,6 +4,7 @@ import { toPng } from 'html-to-image';
 import { jsPDF } from 'jspdf';
 import { useRef } from 'react';
 import { toBlob } from 'html-to-image';
+import CurrentDatetime from './CurrentDatetime';
 
 const InvoiceModal = ({
   isOpen,
@@ -89,12 +90,12 @@ const InvoiceModal = ({
     const newFile = await toBlob(imageRef.current);
     const data = {
       files: [
-        new File([newFile], "nuzlocke.png", {
+        new File([newFile], "Invoice.png", {
           type: newFile.type
         })
       ],
-      title: "Nuzlocke",
-      text: "Nuzlocke"
+      // title: "Invoice",
+      // text: "Invoice"
     };
 
     try {
@@ -146,16 +147,24 @@ const InvoiceModal = ({
             <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all">
               <div className="p-4" id="print" ref={imageRef}>
                 <h1 className="text-center text-lg font-bold text-gray-900">
-                PURCHASE ORDER NOTE
+                INVOICE
                 </h1>
-                <div className="mt-6">
+                <p className="text-center">
+                  <CurrentDatetime />
+                </p>
+                
+                <div className="mt-4">
                   <div className="mb-4 grid grid-cols-2">
-                    <span className="font-bold">Invoice Number:</span>
-                    <span>{invoiceInfo.invoiceNumber}</span>
+                    {/* <span className="font-bold">Invoice Number:</span>
+                    <span>{invoiceInfo.invoiceNumber}</span> */}
                     <span className="font-bold">Cashier:</span>
-                    <span>{invoiceInfo.cashierName}</span>
-                    <span className="font-bold">Customer:</span>
+                    <span>{invoiceInfo.cashierName}</span>            
+                    <span className="font-bold">Customer Name:</span>
                     <span>{invoiceInfo.customerName}</span>
+                    <span className="font-bold">Phone Number:</span>
+                    <span>{invoiceInfo.customerNumber}</span>
+                    <span className="font-bold">Address:</span>
+                    <span>{invoiceInfo.customerAddress}</span>
                   </div>
 
                   <table className="w-full text-left">
@@ -175,39 +184,52 @@ const InvoiceModal = ({
                             {item.qty}
                           </td>
                           <td className="min-w-[80px] text-right">
-                            ${Number(item.price).toFixed(2)}
+                            {Number(item.price).toLocaleString()}
                           </td>
                           <td className="min-w-[90px] text-right">
-                            ${Number(item.price * item.qty).toFixed(2)}
+                            {Number(item.price * item.qty).toLocaleString()}
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
 
-                  <div className="mt-4 flex flex-col items-end space-y-2">
-                    <div className="flex w-full justify-between border-t border-black/10 pt-2">
+                  
+
+                  <div className="mb-4 mt-4 flex flex-col items-end space-y-2">
+                    {/* <div className="flex w-full justify-between border-t border-black/10 pt-2">
                       <span className="font-bold">Subtotal:</span>
-                      <span>${invoiceInfo.subtotal.toFixed(2)}</span>
+                      <span>${invoiceInfo.subtotal.toLocaleString()}</span>
                     </div>
                     <div className="flex w-full justify-between">
                       <span className="font-bold">Discount:</span>
-                      <span>${invoiceInfo.discountRate.toFixed(2)}</span>
+                      <span>${invoiceInfo.discountRate.toLocaleString()}</span>
                     </div>
                     <div className="flex w-full justify-between">
                       <span className="font-bold">Tax:</span>
-                      <span>${invoiceInfo.taxRate.toFixed(2)}</span>
-                    </div>
+                      <span>${invoiceInfo.taxRate.toLocaleString()}</span>
+                    </div> */}
                     <div className="flex w-full justify-between border-t border-black/10 py-2">
                       <span className="font-bold">Total:</span>
                       <span className="font-bold">
-                        $
+                        
                         {invoiceInfo.total % 1 === 0
-                          ? invoiceInfo.total
-                          : invoiceInfo.total.toFixed(2)}
+                          ? invoiceInfo.total.toLocaleString()
+                          : invoiceInfo.total.toLocaleString()}
                       </span>
                     </div>
                   </div>
+                  <hr />
+                  <div className="mb-4 mt-4 grid grid-cols-3">
+                    <span className="font-bold">Taxi:</span>
+                    <span>{invoiceInfo.taxi}</span>
+                    <span>{invoiceInfo.taxiNumber}</span>
+              
+                    <span className="font-bold">Receiver:</span>
+                    <span>{invoiceInfo.receiver}</span>
+                    <span>{invoiceInfo.receiverNumber}</span>
+                  </div>
+
                 </div>
               </div>
               <div className="mt-4 flex space-x-2 px-4 pb-6">

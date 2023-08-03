@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.14.7/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel" data-presets="env,react">
+        const { useState } = React;
+
+        function App() {
+            const [number, setNumber] = useState('');
+
+            const handleChange = (event) => {
+                const { value } = event.target;
+
+                // Remove any existing commas from the input
+                const sanitizedValue = value.replace(/,/g, '');
+
+                // Format the number with commas
+                const formattedValue = Number(sanitizedValue).toLocaleString();
+
+                setNumber(formattedValue);
+            };
+
+            return (
+                <div className='container'>
+                    <h3>React Js Format Number as Comma Separator</h3>
+                    <input
+                        type="text"
+                        value={number}
+                        onChange={handleChange}
+                    />
+                    <p>Number: {number}</p>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+
+    <style>
+        .container {
+            margin: 0 auto;
+            width: 500px;
+            text-align: center;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+            padding: 20px;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+
+        p {
+            font-size: 18px;
+            color: #777;
+        }
+    </style>
+</body>
+
+</html>
